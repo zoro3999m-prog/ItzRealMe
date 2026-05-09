@@ -359,12 +359,6 @@ body {
   position:relative;
   display:inline-block;
 }
-@keyframes iconPulse{
-  0%,100%{transform:scale(1); filter:brightness(1)}
-  25%{transform:scale(1.15); filter:brightness(1.3)}
-  50%{transform:scale(0.95); filter:brightness(0.8)}
-  75%{transform:scale(1.05); filter:brightness(1.1)}
-}
 
 .glitch-wrapper{
   position:relative;
@@ -519,118 +513,227 @@ body {
   100%{background-position:0% 50%}
 }
 
-.top-rank, .other-ranks, .more-ranks{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:25px;
+/* ====== NEW RANKING GRID (HERARCHICAL) ====== */
+.ranking-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
-.top-rank{ margin-bottom:30px; }
-.more-ranks{ margin-top:30px; }
 
-.profile-card{
-  width:270px;
-  padding:40px 20px 30px;
-  background:linear-gradient(180deg, rgba(10,25,45,0.9), rgba(5,12,25,0.95));
-  border-radius:20px;
-  text-align:center;
-  border:1px solid rgba(0,195,255,0.2);
-  box-shadow:0 0 30px rgba(0,195,255,0.1);
-  transition:all 0.5s cubic-bezier(0.175,0.885,0.32,1.275);
-  backdrop-filter:blur(8px);
-  position:relative;
-  overflow:hidden;
+.ranking-row {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  width: 100%;
+  flex-wrap: wrap;
 }
-.profile-card::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius:22px;
-  background:conic-gradient(from var(--angle,0deg), transparent 60%, #00c3ff, #ffd700, transparent);
-  opacity:0;
-  transition:opacity 0.5s;
-  z-index:-1;
+
+.ranking-row.row-1 .profile-card {
+  width: 320px;
 }
-@property --angle{
-  syntax:'<angle>';
-  initial-value:0deg;
-  inherits:false;
+
+.ranking-row.row-2 .profile-card {
+  width: 300px;
 }
-.profile-card:hover::before{
-  opacity:1;
-  animation:fireRing 1.5s linear infinite;
+
+.ranking-row.row-3 .profile-card {
+  width: 280px;
 }
-@keyframes fireRing{
-  to{--angle:360deg}
+
+/* ====== PROFILE CARD (تطابق التصميم القديم) ====== */
+.profile-card {
+  padding: 30px 15px 20px;
+  background: linear-gradient(180deg, rgba(10,25,45,0.9), rgba(5,12,25,0.95));
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid rgba(0,195,255,0.2);
+  box-shadow: 0 0 30px rgba(0,195,255,0.1);
+  transition: all 0.5s cubic-bezier(0.175,0.885,0.32,1.275);
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.profile-card:hover{
-  transform:translateY(-15px) scale(1.03);
-  border-color:rgba(0,195,255,0.5);
-  box-shadow:0 0 50px rgba(0,195,255,0.25), 0 0 100px rgba(255,215,0,0.1);
+
+.profile-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: conic-gradient(from var(--angle,0deg), transparent 60%, #00c3ff, #ffd700, transparent);
+  opacity: 0;
+  transition: opacity 0.5s;
+  z-index: -1;
 }
-.top-rank .profile-card{
-  width:300px;
-  border-color:rgba(255,215,0,0.3);
-  box-shadow:0 0 40px rgba(255,215,0,0.12);
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
 }
-.top-rank .profile-card:hover{
-  border-color:gold;
-  box-shadow:0 0 70px rgba(255,215,0,0.3), 0 0 120px rgba(0,195,255,0.1);
+.profile-card:hover::before {
+  opacity: 1;
+  animation: fireRing 1.5s linear infinite;
 }
-.top-rank .profile-card::before{
-  background:conic-gradient(from var(--angle,0deg), transparent 50%, #ffd700, #ff6b00, transparent);
+@keyframes fireRing {
+  to { --angle: 360deg; }
 }
-.profile-img{
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  border:3px solid rgba(255,215,0,0.6);
-  margin-bottom:12px;
-  object-fit:cover;
-  box-shadow:0 0 20px rgba(255,215,0,0.2);
+
+.profile-card:hover {
+  transform: translateY(-15px) scale(1.03);
+  border-color: rgba(0,195,255,0.5);
+  box-shadow: 0 0 50px rgba(0,195,255,0.25), 0 0 100px rgba(255,215,0,0.1);
 }
-.top-rank .profile-img{
-  width:105px;
-  height:105px;
-  border-width:4px;
-  border-color:gold;
+
+.profile-card.kaiser-card {
+  border-color: rgba(255,215,0,0.3);
+  box-shadow: 0 0 40px rgba(255,215,0,0.12);
 }
-.profile-name{
-  font-size:22px;
-  margin:12px 0 8px;
-  background:linear-gradient(135deg, #00c3ff, #ffd700);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  letter-spacing:1px;
+.profile-card.kaiser-card:hover {
+  border-color: gold;
+  box-shadow: 0 0 70px rgba(255,215,0,0.3);
 }
-.rank-badge{
-  display:inline-block;
-  background:linear-gradient(135deg, #ffd700, #ff8c00);
-  color:#000;
-  padding:6px 18px;
-  border-radius:20px;
-  font-weight:bold;
-  font-size:12px;
-  margin:8px 0;
-  box-shadow:0 0 15px rgba(255,215,0,0.2);
-  letter-spacing:1px;
+.profile-card.kaiser-card::before {
+  background: conic-gradient(from var(--angle,0deg), transparent 50%, #ffd700, #ff6b00, transparent);
 }
-.region{
-  opacity:0.4;
-  margin-bottom:12px;
-  font-size:13px;
-  color:#aaa;
+
+.profile-card.unknown-card {
+  border-color: rgba(60,60,60,0.2);
+  box-shadow: 0 0 20px rgba(60,60,60,0.05);
 }
-.position-box{
-  background:rgba(255,255,255,0.04);
-  padding:12px 15px;
-  border-radius:12px;
-  font-weight:bold;
-  font-size:14px;
-  border:1px solid rgba(0,195,255,0.1);
-  color:rgba(255,255,255,0.8);
-  backdrop-filter:blur(4px);
+.profile-card.unknown-card:hover {
+  border-color: rgba(255,215,0,0.15);
+  box-shadow: 0 0 30px rgba(255,215,0,0.05);
+}
+.profile-card.unknown-card::before {
+  background: conic-gradient(from var(--angle,0deg), transparent 60%, #444, #666, transparent);
+}
+
+.profile-img {
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,215,0,0.6);
+  margin-bottom: 8px;
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(255,215,0,0.2);
+  display: block;
+  background: #0a0a1a;
+}
+
+.kaiser-card .profile-img {
+  width: 105px;
+  height: 105px;
+  border-width: 4px;
+  border-color: gold;
+}
+
+.unknown-card .profile-img {
+  border-color: rgba(60,60,60,0.3);
+  background: #0a0a0f;
+}
+
+.profile-name {
+  font-size: 20px;
+  font-weight: 900;
+  margin: 8px 0 4px;
+  background: linear-gradient(135deg, #00c3ff, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 2px;
+}
+
+.unknown-card .profile-name {
+  background: linear-gradient(135deg, #555, #777);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.kaiser-card .profile-name {
+  font-size: 24px;
+  background: linear-gradient(135deg, #ffd700, #ffec80);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.rank-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  color: #000;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 11px;
+  margin: 5px 0;
+  box-shadow: 0 0 15px rgba(255,215,0,0.2);
+  letter-spacing: 1px;
+}
+
+.unknown-card .rank-badge {
+  background: linear-gradient(135deg, #444, #222);
+  color: #888;
+  box-shadow: none;
+}
+
+.kaiser-card .rank-badge {
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  box-shadow: 0 0 20px rgba(255,215,0,0.4);
+}
+
+.region {
+  opacity: 0.4;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.unknown-card .region {
+  opacity: 0.2;
+}
+
+.position-box {
+  background: rgba(255,255,255,0.04);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 13px;
+  border: 1px solid rgba(0,195,255,0.1);
+  color: rgba(255,255,255,0.8);
+  backdrop-filter: blur(4px);
+  margin-top: 4px;
+}
+
+.unknown-card .position-box {
+  background: rgba(60,60,60,0.04);
+  border: 1px solid rgba(60,60,60,0.1);
+  color: rgba(255,255,255,0.3);
+}
+
+.kaiser-card .position-box {
+  border: 1px solid rgba(255,215,0,0.2);
+  color: rgba(255,215,0,0.9);
+}
+
+.wins-label, .level-label {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+
+.unknown-card .wins-label,
+.unknown-card .level-label {
+  color: rgba(80,80,80,0.3);
 }
 
 /* ====== UNIONS ====== */
@@ -759,7 +862,7 @@ body {
 }
 
 /* ====== RESPONSIVE ====== */
-@media (max-width:768px){
+@media (max-width: 768px) {
   .glitch-title{ font-size:32px; letter-spacing:2px; }
   .glitch-sub{ font-size:14px; letter-spacing:4px; }
   .hero-box{ padding:35px 18px; border-radius:20px; }
@@ -772,8 +875,16 @@ body {
   .navbar{ padding:10px 15px; }
   .nav-links{ gap:12px; }
   .nav-links a{ font-size:11px; }
-  .profile-card{ width:100%; max-width:330px; }
-  .top-rank .profile-card{ width:100%; max-width:330px; }
+  
+  .ranking-row.row-1 .profile-card,
+  .ranking-row.row-2 .profile-card,
+  .ranking-row.row-3 .profile-card {
+    width: 100%;
+    max-width: 340px;
+  }
+  
+  .profile-card { min-height: 300px; }
+  
   .union-card{ width:100%; max-width:280px; }
   .rank-title{ font-size:22px; }
   .golden-box{ padding:35px 25px; }
@@ -781,14 +892,17 @@ body {
   .golden-text-ar{ font-size:18px; }
   .golden-text-bottom{ font-size:13px; }
 }
-@media (max-width:480px){
+
+@media (max-width: 480px) {
   .glitch-title{ font-size:24px; }
   .glitch-sub{ font-size:11px; letter-spacing:2px; }
   .hero-box{ padding:25px 12px; }
   .hero-icon{ font-size:28px; }
   .hero-desc{ font-size:13px; }
   .hero-line{ width:120px; }
-  .profile-card{ padding:28px 12px; }
+  .profile-card{ padding:25px 10px; min-height: 280px; }
+  .profile-img { width: 80px; height: 80px; }
+  .profile-name { font-size: 16px; }
   .union-card{ padding:25px 12px; }
   .golden-box{ padding:25px 15px; }
   .golden-text-en{ font-size:14px; }
@@ -855,56 +969,11 @@ body {
   </div>
 </section>
 
-<!-- ====== RANKS ====== -->
+<!-- ====== RANKS (الجديدة) ====== -->
 <section class="rank-section">
 <h2 class="rank-title">⚔ Rank the Kingdom ⚔</h2>
-<div class="top-rank">
-<div class="profile-card">
-<img src="https://mc-heads.net/avatar/Steve/100" class="profile-img">
-<h2 class="profile-name">𝐊𝐀𝐈𝐒𝐄𝐑</h2>
-<div class="rank-badge">𝐓𝐇𝐄 𝐄𝐌𝐏𝐄𝐑𝐎𝐑</div>
-<p class="region"><i class="fas fa-globe-americas"></i> North America</p>
-<div class="position-box">🏆 #1 — 450 Points</div>
-</div>
-</div>
-<div class="other-ranks">
-<div class="profile-card">
-<img src="https://mc-heads.net/avatar/Alex/100" class="profile-img">
-<h2 class="profile-name">𝐆𝐎𝐉𝐎 𝐒𝐀𝐓𝐎𝐑𝐔</h2>
-<div class="rank-badge">𝐓𝐇𝐄 𝐋𝐨𝐫𝐝</div>
-<p class="region"><i class="fas fa-globe-europe"></i> Europe</p>
-<div class="position-box">🏆 #2 — 390 Points</div>
-</div>
-<div class="profile-card">
-<img src="https://mc-heads.net/avatar/Herobrine/100" class="profile-img">
-<h2 class="profile-name">𝐮𝐧𝐤𝐧𝐨𝐰𝐧</h2>
-<div class="rank-badge"><i class="fas fa-skull"></i>𝗻𝗼𝘁𝗵𝗶𝗻𝗴</div>
-<p class="region"><i class="fas fa-globe-asia"></i> Asia</p>
-<div class="position-box">🏆 #3 — 350 Points</div>
-</div>
-</div>
-<div class="more-ranks">
-<div class="profile-card">
-<img src="https://mc-heads.net/avatar/𝐮𝐧𝐤𝐧𝐨𝐰𝐧/100" class="profile-img">
-<h2 class="profile-name">𝐮𝐧𝐤𝐧𝐨𝐰𝐧</h2>
-<div class="rank-badge"><i class="fas fa-dragon"></i> 𝗻𝗼𝘁𝗵𝗶𝗻𝗴</div>
-<p class="region"><i class="fas fa-globe-europe"></i> Europe</p>
-<div class="position-box">🏆 #4 — 320 Points</div>
-</div>
-<div class="profile-card">
-<img src="https://mc-heads.net/avatar/𝐮𝐧𝐤𝐧𝐨𝐰𝐧/100" class="profile-img">
-<h2 class="profile-name">𝐮𝐧𝐤𝐧𝐨𝐰𝐧</h2>
-<div class="rank-badge"><i class="fas fa-bomb"></i>𝗻𝗼𝘁𝗵𝗶𝗻𝗴</div>
-<p class="region"><i class="fas fa-globe-asia"></i> Asia</p>
-<div class="position-box">🏆 #5 — 300 Points</div>
-</div>
-<div class="profile-card">
-<img src="https://mc-heads.net/avatar/𝐮𝐧𝐤𝐧𝐨𝐰𝐧/100" class="profile-img">
-<h2 class="profile-name">𝐮𝐧𝐤𝐧𝐨𝐰𝐧</h2>
-<div class="rank-badge"><i class="fas fa-eye"></i> 𝗻𝗼𝘁𝗵𝗶𝗻𝗴</div>
-<p class="region"><i class="fas fa-flag-usa"></i> USA</p>
-<div class="position-box">🏆 #6 — 280 Points</div>
-</div>
+<div class="ranking-grid" id="rankingGrid">
+  <!-- سيتم تعبئة البطاقات عبر JavaScript -->
 </div>
 </section>
 
@@ -1023,6 +1092,137 @@ function copyLink(e){
   navigator.clipboard.writeText('https://chat.whatsapp.com/BoF6JL5B1pi0ymiwIXH3xs');
   e.target.innerText = '✅ Copied!';
   setTimeout(() => e.target.innerText = '📋 Copy', 1500);
+}
+
+// ============================================
+// ===== نظام الرانكات الجديد (هرمي) =====
+// ============================================
+
+// SVG علامة الاستفهام للـ unknown
+const questionMarkSvg = `data:image/svg+xml,${encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <rect width="300" height="300" fill="#0a0a0f" rx="150"/>
+  <circle cx="150" cy="150" r="140" fill="none" stroke="#222" stroke-width="4"/>
+  <text x="150" y="175" font-family="Arial" font-size="140" font-weight="900"
+        fill="#333" text-anchor="middle" dominant-baseline="middle">?</text>
+</svg>
+`)}`;
+
+const ranks = [
+  {
+    rank: '#1',
+    name: '𝐊𝐀𝐈𝐒𝐄𝐑',
+    title: '𝐓𝐇𝐄 𝐄𝐌𝐏𝐄𝐑𝐎𝐑',
+    image: 'https://pngdownload.io/wp-content/uploads/2025/10/Michael-Kaiser-Full-Body.avif',
+    wins: '∞',
+    level: '𝐌𝐀𝐗',
+    region: 'North America'
+  },
+  {
+    rank: '#2',
+    name: '𝐮𝐧𝐤𝐧𝐨𝐰𝐧',
+    title: '𝗻𝗼𝘁𝗵𝗶𝗻𝗴',
+    image: null,
+    wins: '???',
+    level: '???',
+    region: '???'
+  },
+  {
+    rank: '#3',
+    name: '𝐆𝐎𝐉𝐎 𝐒𝐀𝐓𝐎𝐑𝐔',
+    title: '𝐓𝐇𝐄 𝐋𝐎𝐑𝐃',
+    image: 'https://www.pngall.com/wp-content/uploads/15/Gojo-Satoru-PNG.png',
+    wins: '𝟗𝟗𝟗',
+    level: '𝐋𝐄𝐆𝐄𝐍𝐃',
+    region: 'Europe'
+  },
+  {
+    rank: '#4',
+    name: '𝐮𝐧𝐤𝐧𝐨𝐰𝐧',
+    title: '𝗻𝗼𝘁𝗵𝗶𝗻𝗴',
+    image: null,
+    wins: '???',
+    level: '???',
+    region: '???'
+  },
+  {
+    rank: '#5',
+    name: '𝐮𝐧𝐤𝐧𝐨𝐰𝐧',
+    title: '𝗻𝗼𝘁𝗵𝗶𝗻𝗴',
+    image: null,
+    wins: '???',
+    level: '???',
+    region: '???'
+  },
+  {
+    rank: '#6',
+    name: '𝐮𝐧𝐤𝐧𝐨𝐰𝐧',
+    title: '𝗻𝗼𝘁𝗵𝗶𝗻𝗴',
+    image: null,
+    wins: '???',
+    level: '???',
+    region: '???'
+  }
+];
+
+// إنشاء البطاقات بالترتيب الهرمي
+const grid = document.getElementById('rankingGrid');
+grid.innerHTML = '';
+
+// الصف الأول: #1 (كايزر) منفرد
+const row1 = document.createElement('div');
+row1.className = 'ranking-row row-1';
+row1.appendChild(createCard(ranks[0], 0));
+grid.appendChild(row1);
+
+// الصف الثاني: #2 + #3 جنب بعض
+const row2 = document.createElement('div');
+row2.className = 'ranking-row row-2';
+row2.appendChild(createCard(ranks[1], 1));
+row2.appendChild(createCard(ranks[2], 2));
+grid.appendChild(row2);
+
+// الصف الثالث: #4 + #5 + #6 ثلاث بطاقات
+const row3 = document.createElement('div');
+row3.className = 'ranking-row row-3';
+row3.appendChild(createCard(ranks[3], 3));
+row3.appendChild(createCard(ranks[4], 4));
+row3.appendChild(createCard(ranks[5], 5));
+grid.appendChild(row3);
+
+// دالة إنشاء بطاقة
+function createCard(player, index) {
+  const card = document.createElement('div');
+  const isUnknown = player.image === null;
+  const isKaiser = index === 0;
+  
+  card.className = 'profile-card' + (isKaiser ? ' kaiser-card' : '') + (isUnknown ? ' unknown-card' : '');
+
+  let imgSrc;
+  if (isUnknown) {
+    imgSrc = questionMarkSvg;
+  } else {
+    imgSrc = player.image;
+    // Backup inline
+    card.setAttribute('data-backup', 
+      index === 0 
+        ? `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300"><rect width="300" height="300" fill="#1a1a2e" rx="150"/><circle cx="150" cy="150" r="140" fill="none" stroke="#ffd700" stroke-width="3" stroke-dasharray="10,5"/><text x="150" y="140" font-family="Arial" font-size="60" font-weight="900" fill="#ffd700" text-anchor="middle">👑</text><text x="150" y="200" font-family="Arial" font-size="20" font-weight="bold" fill="#ffd700" text-anchor="middle" opacity="0.7">KAISER</text></svg>`)}`
+        : `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300"><rect width="300" height="300" fill="#1a1a2e" rx="150"/><circle cx="150" cy="150" r="140" fill="none" stroke="#ffd700" stroke-width="3" stroke-dasharray="10,5"/><text x="150" y="140" font-family="Arial" font-size="50" font-weight="900" fill="#ffd700" text-anchor="middle">⚡</text><text x="150" y="200" font-family="Arial" font-size="18" font-weight="bold" fill="#ffd700" text-anchor="middle" opacity="0.7">GOJO</text></svg>`)}`
+    );
+  }
+
+  card.innerHTML = `
+    <div style="position:absolute;top:0.8rem;right:0.8rem;background:${isUnknown ? 'linear-gradient(135deg,#444,#222)' : isKaiser ? 'linear-gradient(135deg,#ffd700,#ff8c00)' : 'linear-gradient(135deg,#ffd700,#b8860b)'};color:${isUnknown ? '#888' : '#000'};font-weight:900;font-size:0.85rem;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:1px;${isKaiser ? 'box-shadow:0 0 20px rgba(255,215,0,0.4);' : ''}">${player.rank}</div>
+    <img class="profile-img" src="${imgSrc}"
+         alt="${player.name}"
+         onerror="this.src=this.closest('.profile-card').getAttribute('data-backup') || '${questionMarkSvg}'">
+    <h2 class="profile-name">${player.name}</h2>
+    <div class="rank-badge">${player.title}</div>
+    <p class="region"><i class="fas fa-globe-americas"></i> ${player.region}</p>
+    <div class="position-box">🏆 ${player.rank} — ${player.wins} Points</div>
+  `;
+
+  return card;
 }
 </script>
 
